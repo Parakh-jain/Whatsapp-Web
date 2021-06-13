@@ -4,7 +4,8 @@ import "./Login.css";
 import {auth,provider} from "./firbase";
 import { actionTypes } from './reducer';
 import {useStateValue} from './StateProvider'
-const Login = () => {
+function Login(){
+    
     const [{},dispatch]=useStateValue()
     
     const signIn = () => {
