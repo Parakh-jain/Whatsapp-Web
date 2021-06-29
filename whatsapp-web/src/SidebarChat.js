@@ -1,21 +1,20 @@
 import { Avatar } from "@material-ui/core"
 import React, { useEffect, useState } from 'react';
 import "./SidebarChat.css";
-const SidebarChat=({messages})=> {
-    const [seed,setSeed]=useState("");
-    useEffect(()=>{
-        setSeed(Math.floor(Math.random()*5000))
-    },[])
-    return (
-        <div className="sidebarchat">
-            <Avatar src={`https://avatars.dicebear.com/api/human/b${seed}.svg`} />
-            <div className="sidebarchat__info">
-                <h2> Dev Room </h2>
-                <p>{messages[messages.length-1]?.message}</p>
+import { Link } from 'react-router-dom'
 
+const SidebarChat = ({ id, name, image }) => {
+
+    return (
+        <Link to={`/rooms/${id}`}>
+            <div className="sidebarchat">
+                <Avatar src={image} />
+                <div className="sidebarchat__info">
+                    <h2>{name} </h2>
+                </div>
             </div>
-        </div>
-    )
+        </Link>
+    );
 }
 
 export default SidebarChat

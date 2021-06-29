@@ -15,9 +15,21 @@
     justify-content: space-between;
     min-width: 10vw;
 }
+.profilepic{
+    font-size: 40px !important;
+}
+
 .sidebar__headerRight > .MuiSvgIcon-root{
     margin-right: 2vw;
-    font-size: 24px;    
+    font-size: 24px    !important; /*to overwrite material UI font size we use !important */
+}
+
+.sidebar__button{
+    display: flex;
+    padding: 20px;
+    cursor: pointer;
+    border: 2px solid white;
+    background-color: white;
 }
 .sidebar__search{
     display: flex;
@@ -49,4 +61,9 @@
     flex: 1;
     background-color: white;
     overflow: scroll;
+}
+@media(max-width: 800px){
+    .sidebar-header{
+        padding: 20px 10px 20px 20px;
+    }
 }

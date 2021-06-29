@@ -4,10 +4,12 @@ import "./Login.css";
 import {auth,provider} from "./firbase";
 import { actionTypes } from './reducer';
 import {useStateValue} from './StateProvider'
-function Login(){
+
+const Login = ()=> {
     
-    const [{},dispatch]=useStateValue()
-    
+    const [{},dispatch]=useStateValue(); //dispatch used for dispatch any action
+   
+    /*SignIn with Google*/
     const signIn = () => {
         auth.signInWithPopup(provider)
             .then((result) => {
@@ -25,7 +27,7 @@ function Login(){
                 <div className="login__text">
                     <h1>Sign in to whatsapp</h1>
                 </div>
-                <Button type="submit" onClick={signIn}>
+                <Button type="submit" onClick={signIn}>  {/*Button is matarial UI icon */}
                     Sign in with Google
                 </Button>
             </div>

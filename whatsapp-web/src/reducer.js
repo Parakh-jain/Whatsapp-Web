@@ -1,19 +1,23 @@
-export const initialState={
-    user:null
-}
-export const actionTypes={
-    SET_USER: "SET_USER"
+export const initialState = {
+    user: null,
 };
-const reducer = (state,action)=>{
-    console.log(action)
-    switch(action.type){
+
+export const actionTypes = {
+    SET_USER: "SET_USER",
+};
+
+const reducer = (state, action) => {
+    console.log(action);
+    switch(action.type) {
         case actionTypes.SET_USER:
-            return{
+            return {
                 ...state,
-                user: action.user
+                user: action.user,
             };
+
             default:
                 return state;
     }
 };
-export default reducer
+
+export default reducer;

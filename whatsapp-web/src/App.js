@@ -1,53 +1,73 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Sidebar from "./Sidebar";
 import Chat from "./Chat";
 import Pusher from "pusher-js";
 import axios from "./axios";
 import Login from "./Login";
-import {useStateValue} from './StateProvider'
+import { useStateValue } from './StateProvider'
+import Welcome from './Welcome';
 
-function App() {
+const App=()=> {
+
+  const [{ user }, dispatch] = useStateValue();
   const [messages, setMessages] = useState([]);
-  const [{user},dispatch]= useStateValue()
+
+  /*Fetch Messages*/
   useEffect(() => {
-    axios.get('/messages/sync').then(response => {
-      setMessages(response.data);
+    axios.get('/messages/sync').then(res => {
+      setMessages(res.data);
     })
   }, []);
-
+ 
+  /*Run Pusher script once, when message component loads.*/
+  /*Gets new message in real-time*/
   useEffect(() => {
-    const pusher = new Pusher('02f75b8643a9091101fe', {
+    const pusher = new Pusher(process.env.REACT_APP_PUSHER_HTML, {
       cluster: 'ap2'
     });
 
     const channel = pusher.subscribe('messages');
     channel.bind('inserted', (newMessage) => {
       // alert(JSON.stringify(newMessage));
-      setMessages([...messages, newMessage])
+      setMessages([...messages, newMessage]) //spread messages + add newMessage also
     });
 
     return () => {
       channel.unbind_all();
       channel.unsubscribe();
     }
-  }, [messages]);
+  }, [messages]);   // we are depending on messages i.e why we add messages in [] 
 
-  console.log(messages);
+  console.log(window.innerWidth);
+
 
   return (
+   //BEM naming convention
     <div className="app">
-          {!user ? 
-          <Login /> :(
-            <div className="app_body">
+      {!user ? (
+        <Login />
+      ) : (
+        <div className="app_body">
+          <Router>
 
             <Sidebar messages={messages} />
-  
-            <Chat messages={messages} />
-          </div>
-          )}
-    </div>
-  );
-}
+            <Switch>
+              <Route path="/rooms/:ROOMID">
 
+                <Chat messages={messages} />
+                
+              </Route>
+              <Route path="/">
+                <Welcome />
+              </Route>
+            </Switch>
+          </Router>
+        </div>
+      )
+      }
+    </div>
+  )
+}
 export default App;

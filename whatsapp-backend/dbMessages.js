@@ -1,10 +1,14 @@
 import mongoose from "mongoose";
- const whatsappSchema= mongoose.Schema(
-     {
-         message:String,
-         name:String,
-         timestamp:String,
-         received:Boolean
-     }
- );
- export default mongoose.model('messagecontents',whatsappSchema);
+
+// Creating data structures for storing messages
+
+const wpSchema = mongoose.Schema({
+    roomID: String,
+    message: String,
+    name: String,
+    timeStamp: String,
+    received: Boolean
+})
+
+
+export default mongoose.model('messages',wpSchema)
