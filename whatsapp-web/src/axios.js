@@ -1,6 +1,6 @@
 import axios from 'axios'
 
 const instance =axios.create({
-    baseURL:process.env.REACT_APP_AXIOS_URL,
+    baseURL:"https://whatsapp-web-mern.herokuapp.com",
 });
 export default instance;
